@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/admin/">调查问卷管理系统</a>
+            <ul class="nav pull-right">
+                <li><a href="/accounts/logout/">退出</a></li>
+            </ul><!-- End .nav -->
+        </div><!-- End .container -->
+    </div><!-- End .navbar-inner -->
+</div><!-- End .navbar -->
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span2">
+            {% block sidebar %}{% include 'admin/sidebar.html' %}{% endblock %}
+        </div><!-- End .span2 -->
+        <div class="span10">
+            {% block main %}<!-- Main content -->{% endblock %}
+        </div><!-- End .span10 -->
+    </div><!-- End .row -->
+</div><!-- End .container -->
+{% endblock content %}
+
+{% block footer %}
+<div class="footer">
+    <p>版权所有 &copy; 2013 Developed by chinakr</p>
+</div><!-- End .footer -->
+{% endblock footer %}

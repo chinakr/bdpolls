@@ -1,0 +1,7 @@
+---
+name: vlab
+version: 6
+libraries:
+- name: django
+  version: "1.4"
+...

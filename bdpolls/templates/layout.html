@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{% block title %}Page title{% endblock %}</title>
+<meta name="description" content="{% block description %}Page description{% endblock %}" />
+<meta name="keywords" content="{% block keywords %}Page keywords{% endblock %}" />
+<link rel="shortcut icon" href="/static/favicon.ico" />
+<link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<!--[if lt IE 9]>
+<script src="/static/js/html5shiv.js"></script>
+<![endif]-->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+{% block head %}<!-- Custom CSS and JS -->{% endblock %}
+</head>
+<body>
+{% block header %}<!-- Page header -->{% endblock %}
+{% block content %}<!-- Page body -->{% endblock %}
+{% block footer %}<!-- Page footer -->{% endblock %}
+</body>
+</html>
