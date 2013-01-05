@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 def listing(request):
     """问卷列表(问卷管理)"""
 
-    pass
+    return render(request, 'admin/list.html', {
+    })
 
 def add(request):
     """添加问卷"""
