@@ -1,0 +1,33 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}为{{ questionnaire }}添加问题{% endblock %}
+
+{% block description %}为调查问卷{{ questionnaire }}添加问题。{% endblock %}
+
+{% block keywords %}调查问卷, 问题, 添加{% endblock %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li><a href="/admin/edit/{{ questionnaire.id }}/">{{ questionnaire }}</a> <span class="divider">/</span></li>
+    <li class="active">添加问题</a>
+</ul><!-- End .breadcrumb -->
+<form action="" method="post" class="form-horizontal">{% csrf_token %}
+    {{ form.non_field_errors }}
+    <input type="hidden" name="from_url" value="{{ from_url }}" />
+    {% for field in form %}
+    <div class="control-group">
+        <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+        <div class="controls">
+            {{ field }}
+        </div><!-- End .controls -->
+    </div><!-- End .control-group -->
+    {% endfor %}
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a class="return" href="{{ from_url }}">返回</a>
+        </div><!-- End .controls -->
+    </div><!-- End .control-group -->
+</form>
+{% endblock main %}

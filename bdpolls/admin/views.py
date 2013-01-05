@@ -2,8 +2,8 @@
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from admin.models import Questionnaire
-from admin.models import QuestionnaireForm
+from admin.models import Questionnaire, Question, Option
+from admin.models import QuestionnaireForm, QuestionForm, OptionForm
 
 def listing(request):
     """问卷列表(问卷管理)"""
@@ -31,9 +31,13 @@ def add(request):
     })
 
 def edit(request, questionnaire_id):
-    """修改问卷"""
+    """修改问卷(问题管理)"""
 
-    pass
+    questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
+
+    return render(request, 'admin/edit.html', {
+        'questionnaire': questionnaire,
+    })
 
 def delete(request, questionnaire_id):
     """删除问卷"""
@@ -45,10 +49,31 @@ def delete(request, questionnaire_id):
 
     return redirect('/admin/list/')
 
-def add_question(request):
+def add_question(request, questionnaire_id):
     """添加问题"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+
+    questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
+
+    if request.method == 'POST':
+        from_url = request.POST['from_url']
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.questionnaire = questionnaire
+            question.order = questionnaire.question_set.count() + 1
+            question.save()
+            messages.success(request, u'第%d个问题已添加。' % question.order)
+            return redirect(from_url)
+    else:
+        form = QuestionForm()
+
+    return render(request, 'admin/add_question.html', {
+        'questionnaire': questionnaire,
+        'form': form,
+        'from_url': from_url,
+    })
 
 def edit_question(request, question_id):
     """修改问题"""
@@ -58,12 +83,44 @@ def edit_question(request, question_id):
 def delete_question(request, question_id):
     """删除问题"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
 
-def add_option(request):
+    question = Question.objects.get(pk=question_id)
+    name = question
+    order = question.order
+    question.delete()
+    questions = Question.objects.filter(order__gt=order)
+    for question in questions:
+        question.order -= 1
+        question.save()
+    messages.success(request, u'第%d个问题已删除。' % order)
+    
+    return redirect(from_url)
+
+def add_option(request, question_id):
     """添加选项"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+    question = Question.objects.get(pk=question_id)
+    from_url += '#q%d' % question.order
+
+    if request.method == 'POST':
+        from_url = request.POST['from_url']
+        form = OptionForm(request.POST)
+        if form.is_valid():
+            option = form.save(commit=False)
+            option.question = question
+            option.order = question.option_set.count() + 1
+            option.save()
+            return redirect(from_url)
+    else:
+        form = OptionForm()
+
+    return render(request, 'admin/add_option.html', {
+        'question': question,
+        'form': form,
+        'from_url': from_url,
+    })
 
 def edit_option(request, option_id):
     """修改选项"""

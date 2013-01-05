@@ -1,6 +1,8 @@
+/*
 body>div.container {
     margin-top: 60px;
 }
+*/
 body>div.footer {
     text-align: center;
     margin-top: 10px;
@@ -9,3 +11,8 @@ body>div.footer {
 form div.controls textarea {
     width: 400px;
     height: 100px;
+}
+div.questionnaire h1 {
+    text-align: center;
+    font-size: 24px;
+}

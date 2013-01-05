@@ -1,0 +1,45 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}{{ questionnaire.title }}的问题管理{% endblock %}
+
+{% block description %}修改调查问卷{{ questionnaire.title }}，添加、修改或删除问题。{% endblock %}
+
+{% block keywords %}调查问卷, 修改{% endblock %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li class="active">修改问卷</li>
+</ul><!-- End .breadcrumb -->
+<p><a class="btn" href="/admin/list/">返回</a></p>
+<div class="questionnaire">
+    <h1>{{ questionnaire.title }}</h1>
+    <p><a class="btn btn-primary" href="/admin/{{ questionnaire.id }}/add/">添加试题</a></p>
+    {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        <button class="close" data-dismiss="alert">&times;</button>
+    </div><!-- End .alert -->
+    {% endif %}
+    <div class="introduction well">
+        {{ questionnaire.introduction }}
+    </div><!-- End .introduction -->
+    {% for question in questionnaire.questions %}
+    <a name="q{{ question.order }}"></a>
+    <div class="question well">
+        <p><span class="order">{{ question.order }}.</span> <span class="content">{{ question.content }}</span>{% if question.is_multiple_choice %} [多选题]{% endif %}</p>
+        {% for option in question.options %}
+        <div class="option">
+            <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> <a>修改</a> <a>删除</a></p>
+        </div><!-- End .option -->
+        {% endfor %}
+        <p><a class="btn btn-primary" href="/admin/q{{ question.id }}/add/">添加选项</a> <button type="button" class="btn btn-primary">修改试题</button> <a class="btn btn-primary" href="/admin/q{{ question.id }}/delete/">删除试题</a></p>
+    </div><!-- End .question -->
+    {% endfor %}
+    <div class="thanking well">
+        {{ questionnaire.thanking }}
+    </div><!-- End .thanking -->
+</div><!-- End .questionnaire -->
+{% endblock main %}
