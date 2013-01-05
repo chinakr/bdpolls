@@ -130,7 +130,19 @@ def edit_option(request, option_id):
 def delete_option(request, option_id):
     """删除选项"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+
+    option = Option.objects.get(pk=option_id)
+    question = option.question
+    order = option.order
+    option.delete()
+    options = Option.objects.filter(order__gt=order)
+    for option in options:
+        option.order -= 1
+        option.save()
+    
+    from_url += '#q%d' % question.id
+    return redirect(from_url)
 
 def view_report(request, report_id):
     """查看报表"""
