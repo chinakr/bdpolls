@@ -78,7 +78,23 @@ def add_question(request, questionnaire_id):
 def edit_question(request, question_id):
     """修改问题"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+    question = Question.objects.get(pk=question_id)
+    from_url += '#q%d' % question.order
+    if request.method == 'POST':
+        from_url = request.POST['from_url']
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'%s修改成功。' % question)
+    else:
+        form = QuestionForm(instance=question)
+
+    return render(request, 'admin/edit_question.html', {
+        'question': question,
+        'form': form,
+        'from_url': from_url,
+    })
 
 def delete_question(request, question_id):
     """删除问题"""

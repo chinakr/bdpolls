@@ -1,0 +1,41 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}修改{{ question }}{% endblock %}
+
+{% block description %}修改{{ question }}，不包括序号和选项。{% endblock %}
+
+{% block keywords %}调查问卷, 问题, 修改{% endblock %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li><a href="/admin/edit/{{ question.questionnaire.id }}/">{{ question.questionnaire }}</a> <span class="divider">/</span></li>
+    <li class="active">修改第{{ question.order }}题</a>
+</ul><!-- End .breadcrumb -->
+{% if messages %}
+<div class="alert alert-success">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    <button class="close" data-dismiss="alert">&times;</button>
+</div><!-- End .alert -->
+{% endif %}
+<form action="" method="post" class="form-horizontal">{% csrf_token %}
+    {{ form.non_field_errors }}
+    <input type="hidden" name="from_url" value="{{ from_url }}" />
+    {% for field in form %}
+    <div class="control-group">
+        <label class="control-label" for="{{ field.auto_id }}">{{ field.label }}</label>
+        <div class="controls">
+            {{ field }}
+        </div><!-- End .controls -->
+    </div><!-- End .control-group -->
+    {% endfor %}
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a class="return" href="{{ from_url }}">返回</a>
+        </div><!-- End .controls -->
+    </div><!-- End .control-group -->
+</form>
+{% endblock main %}

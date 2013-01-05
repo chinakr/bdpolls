@@ -35,7 +35,7 @@
             <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> <a>修改</a> <a href="/admin/o{{ option.id }}/delete/">删除</a></p>
         </div><!-- End .option -->
         {% endfor %}
-        <p><a class="btn btn-primary" href="/admin/q{{ question.id }}/add/">添加选项</a> <button type="button" class="btn btn-primary">修改试题</button> <a class="btn btn-primary" href="/admin/q{{ question.id }}/delete/">删除试题</a></p>
+        <p><a class="btn btn-primary" href="/admin/q{{ question.id }}/add/">添加选项</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/edit/">修改试题</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/delete/">删除试题</a></p>
     </div><!-- End .question -->
     {% endfor %}
     <div class="thanking well">
