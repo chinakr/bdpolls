@@ -1,0 +1,28 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}{{ report }}{% endblock %}
+
+{% block description %}欢迎查阅{{ report }}，内容包括每一个问题每一个选项的被选择情况。{% endblock %}
+
+{% block keywords %}调查问卷, 统计报表{% endblock %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li class="active">{{ report }}</li>
+</ul><!-- End .breadcrumb -->
+<div class="questionnaire">
+    <h1>{{ report }}</h1>
+    {% for question in report.questionnaire.questions %}
+    <a name="q{{ question.order }}"></a>
+    <div class="question well">
+        <p><span class="order">{{ question.order }}.</span> <span class="content">{{ question.content }}</span>{% if question.is_multiple_choice %} [多选]{% endif %}</p>
+        {% for option in question.options %}
+        <div class="option">
+            <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> 被选择<span class="amount">{{ option.percentage.amount }}</span>次，选择比例<span class="percentage">{{ option.percentage.percent|floatformat }}%</span></p>
+        </div><!-- End .option -->
+        {% endfor %}
+    </div><!-- End .question -->
+    {% endfor %}
+</div><!-- End .questionnaire -->
+{% endblock main %}

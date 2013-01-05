@@ -56,3 +56,11 @@ div.thanking {
 div.thanks h1 {
     font-size: 24px;
 }
+
+span.amount {
+    font-weight: bold;
+}
+span.percentage {
+    /* color: red; */
+    font-weight: bold;
+}

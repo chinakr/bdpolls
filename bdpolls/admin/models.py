@@ -47,14 +47,22 @@ class Option(models.Model):
 
         return chr(ord('A') + self.order - 1)
 
+    def percentage(self):
+        """返回百分比(统计报表)"""
+        
+        report = Report.objects.filter(questionnaire=self.question.questionnaire).order_by('-created')[0]
+        percentage = Percentage.objects.get(report=report, option=self)
+        return percentage
+
 class Report(models.Model):
     """报表表"""
 
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=u'相关问卷')
+    total = models.IntegerField(verbose_name=u'参与人数')
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'创建时间')
 
     def __unicode__(self):
-        return u'%s的统计报表' % (questionnaire)
+        return u'%s的统计报表' % self.questionnaire
 
 class Percentage(models.Model):
     """百分比表(每份答卷每个问题每个选项选择的百分比)"""

@@ -2,8 +2,9 @@
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from admin.models import Questionnaire, Question, Option
+from admin.models import Questionnaire, Question, Option, Report, Percentage
 from admin.models import QuestionnaireForm, QuestionForm, OptionForm
+from survey.models import Feedback, Answer
 
 def listing(request):
     """问卷列表(问卷管理)"""
@@ -219,10 +220,25 @@ def move_option(request, option_id, action):
     
     return redirect(from_url)
 
-def view_report(request, report_id):
+def view_report(request, questionnaire_id):
     """查看报表"""
+   
+    questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
+    if Report.objects.filter(questionnaire=questionnaire).exists():
+        report = Report.objects.filter(questionnaire=questionnaire).order_by('-created')[0]
+    else:
+        total = Feedback.objects.filter(questionnaire=questionnaire).count()
+        report = Report.objects.create(questionnaire=questionnaire, total=total)
+        for question in questionnaire.questions():
+            for option in question.options():
+                amount = Answer.objects.filter(question=question, option=option).count()
+                percent = 1.0 * amount / report.total * 100
+                Percentage.objects.create(report=report, question=question, option=option, amount=amount, percent=percent)
 
-    pass
+    return render(request, 'admin/report.html', {
+        'report': report,
+    })
+
 
 def update_report(request, report_id):
     """更新报表"""
