@@ -195,12 +195,29 @@ def delete_option(request, option_id):
         option.save()
     
     from_url += '#q%d' % question.id
+    
     return redirect(from_url)
 
 def move_option(request, option_id, action):
     """移动选项(改变序号)"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+    option = Option.objects.get(pk=option_id)
+    from_url += '#q%d' % option.question.order
+    if action == 'up' and option.order != 1:
+        related_option = Option.objects.get(question=option.question, order=option.order-1)
+        related_option.order += 1
+        related_option.save()
+        option.order -= 1
+        option.save()
+    elif action == 'down' and option.order != option.question.option_set.count():
+        related_option = Option.objects.get(question=option.question, order=option.order+1)
+        related_option.order -= 1
+        related_option.save()
+        option.order += 1
+        option.save()
+    
+    return redirect(from_url)
 
 def view_report(request, report_id):
     """查看报表"""

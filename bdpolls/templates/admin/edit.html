@@ -32,7 +32,7 @@
         <p><span class="order">{{ question.order }}.</span> <span class="content">{{ question.content }}</span>{% if question.is_multiple_choice %} [多选题]{% endif %}</p>
         {% for option in question.options %}
         <div class="option">
-            <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> <a href="/admin/o{{ option.id }}/edit/">修改</a> <a href="/admin/o{{ option.id }}/delete/">删除</a> <a>上移</a> <a>下移</a></p>
+            <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> <a href="/admin/o{{ option.id }}/edit/">修改</a> <a href="/admin/o{{ option.id }}/delete/">删除</a> <a href="/admin/o{{ option.id }}/up/">上移</a> <a href="/admin/o{{ option.id }}/down/">下移</a></p>
         </div><!-- End .option -->
         {% endfor %}
         <p><a class="btn btn-primary" href="/admin/q{{ question.id }}/add/">添加选项</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/edit/">修改试题</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/delete/">删除试题</a> <a class="btn" href="/admin/q{{ question.id }}/up/">上移</a> <a class="btn" href="/admin/q{{ question.id }}/down/">下移</a></p>
