@@ -1,0 +1,14 @@
+{% extends 'layout_survey.html' %}
+
+{% block title %}感谢参与{{ questionnaire.title }}{% endblock %}
+
+{% block description %}感谢您在百忙之中参与{{ questionnaire.title }}，我们将在未来的产品和服务中认真考虑您的意见！{% endblock %}
+
+{% block keywords %}问卷, 参与, 感谢{% endblock %}
+
+{% block main %}
+<div class="thanks well">
+    <h1>感谢！</h1>
+    <p>感谢您在百忙之中参与{{ questionnaire.title }}， 我们将在未来的产品和服务中认真考虑您的意见！</p>
+</div><!-- End .thanks -->
+{% endblock main %}

@@ -1,0 +1,41 @@
+{% extends 'layout_survey.html' %}
+
+{% block title %}{{ questionnaire }}{% endblock %}
+
+{% block description %}参与{{ questionnaire }}，发出属于你的真实声音！{% endblock %}
+
+{% block keywords %}问卷, 参与{% endblock %}
+
+{% block main %}
+<form class="questionnaire" action="" method="post">{% csrf_token %}
+    <h1>{{ questionnaire.title }}</h1>
+    <div class="introduction well">
+        {{ questionnaire.introduction }}
+    </div><!-- End .introduction -->
+    {% for question in questionnaire.questions %}
+    <div class="question well">
+        <p><span class="order">{{ question.order }}.</span> <span class="content">{{ question.content }}</span>{% if question.is_multiple_choice %} [多选]{% endif %}</p>
+        <div class="option">
+            {% comment %}
+            <p>{% for option in question.options %}<span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span>{% endfor %}</p>
+            {% endcomment %}
+            {% for option in question.options %}
+            {% if question.is_multiple_choice %}
+            <input type="checkbox" name="question_{{ question.id }}" value="{{ option.id }}">
+            {% else %}
+            <input type="radio" name="question_{{ question.id }}" value="{{ option.id }}">
+            {% endif %}
+            <span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span>
+            {% endfor %}
+        </div><!-- End .option -->
+    </div><!-- End .question -->
+    {% endfor %}
+    <p class="contact"><label for="name">姓名</label><input type="text" name="name"> <label for="mobile">手机</label><input type="text" name="mobile"></p>
+    <div style="clear: both"></div>
+    <div class="thanking well">
+        {{ questionnaire.thanking }}
+    </div><!-- End .thanking -->
+    <p class="submit"><button type="submit" class="btn btn-primary">提交</button></p>
+    </div><!-- End .control-group -->
+</form><!-- End .questionnaire -->
+{% endblock main %}

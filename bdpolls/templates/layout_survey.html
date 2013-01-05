@@ -1,17 +1,31 @@
 {% extends 'layout.html' %}
 
 {% block header %}
-<div class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="row">
+<div class="navbar span10 offset1">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="/">在线调查问卷</a>
         </div><!-- End .container -->
     </div><!-- End .navbar -->
 </div><!-- End .navbar -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
 {% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="main span10 offset1">
+            {% block main %}{% endblock %}
+        </div><!-- End .main -->
+    </div><!-- End .row -->
+</div><!-- End .container -->
+{% endblock content %}
 
 {% block footer %}
 <div class="footer">
-    <p>版权所有 &copy; 2013 技术支持：<a href="http://weibo.com/chinakr">chinakr</a></p>
+    <p>版权所有 &copy; 2013&nbsp;&nbsp;技术支持：<a href="http://weibo.com/chinakr" target="_blank">chinakr</a></p>
 </div><!-- End .footer -->
 {% endblock footer %}

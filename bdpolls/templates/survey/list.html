@@ -1,0 +1,28 @@
+{% extends 'layout_survey.html' %}
+
+{% block title %}问卷列表_在线调查问卷{% endblock %}
+
+{% block description %}正在进行和已经结束的调查问卷。{% endblock %}
+
+{% block keywords %}问卷, 列表{% endblock %}
+
+{% block main %}
+<table class="table table-striped table-hover">
+<thead>
+    <tr>
+        <th>问卷名称</th>
+        <th>更新时间</th>
+        <th>操作</th>
+    </tr>
+</thead>
+<tbody>
+    {% for questionnaire in questionnaires %}
+    <tr>
+        <td>{{ questionnaire }}</td>
+        <td>{{ questionnaire.updated|date:"o-m-d H:i" }}</td>
+        <td><a href="/{{ questionnaire.id }}/">我要参加</a></td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock main %}

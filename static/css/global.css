@@ -16,3 +16,43 @@ div.questionnaire h1 {
     text-align: center;
     font-size: 24px;
 }
+
+form.questionnaire h1 {
+    text-align: center;
+    font-size: 24px;
+}
+span.order {
+    font-weight: bold;
+}
+
+div.option span.content {
+    margin-right: 25px;
+}
+form.questionnaire p.submit {
+    text-align: center;
+}
+div.option input[type="radio"], div.option input[type="checkbox"] {
+    margin-bottom: 6px;
+}
+p.contact {
+    margin: auto;
+    width: 600px;
+}
+p.contact label {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+p.contact input {
+    float: left;
+    margin-right: 25px;
+}
+div.question {
+    background-color: white;
+}
+div.thanking {
+    margin-top: 10px;
+}
+div.thanks h1 {
+    font-size: 24px;
+}

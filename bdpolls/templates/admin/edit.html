@@ -29,7 +29,7 @@
     {% for question in questionnaire.questions %}
     <a name="q{{ question.order }}"></a>
     <div class="question well">
-        <p><span class="order">{{ question.order }}.</span> <span class="content">{{ question.content }}</span>{% if question.is_multiple_choice %} [多选题]{% endif %}</p>
+        <p><span class="order">{{ question.order }}.</span> <span class="content">{{ question.content }}</span>{% if question.is_multiple_choice %} [多选]{% endif %}</p>
         {% for option in question.options %}
         <div class="option">
             <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> <a href="/admin/o{{ option.id }}/edit/">修改</a> <a href="/admin/o{{ option.id }}/delete/">删除</a> <a href="/admin/o{{ option.id }}/up/">上移</a> <a href="/admin/o{{ option.id }}/down/">下移</a></p>

@@ -4,6 +4,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from admin.models import Questionnaire, Question, Option
 
+class UserProfile(models.Model):
+    """自定义用户信息"""
+
+    user = models.OneToOneField(User)
+    name = models.CharField(max_length=50, blank=True, null=True, verbose_name=u'姓名')
+    mobile = models.CharField(max_length=50, blank=True, null=True, verbose_name=u'手机')
+
 class Feedback(models.Model):
     """答卷(反馈)"""
 

@@ -38,5 +38,9 @@ urlpatterns = patterns('',
     url(r'admin/(\d+)/report/$', 'admin.views.view_report'),    # 查看报表
     url(r'admin/(\d+)/report/update/$', 'admin.views.update_report'),    # 更新报表
 
-
+    # 前台
+    url(r'^$', 'survey.views.listing'),    # 首页
+    url(r'list/$', 'survey.views.listing'),    # 问卷列表
+    url(r'(\d+)/$', 'survey.views.join'),    # 填写问卷
+    url(r'(\d+)/thanks/$', 'survey.views.thanks'),    # 感谢(广告)
 )
