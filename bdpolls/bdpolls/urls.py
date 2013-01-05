@@ -28,10 +28,12 @@ urlpatterns = patterns('',
     url(r'admin/(\d+)/add/$', 'admin.views.add_question'),    # 添加问题
     url(r'admin/q(\d+)/edit/$', 'admin.views.edit_question'),    # 修改问题
     url(r'admin/q(\d+)/delete/$', 'admin.views.delete_question'),    # 删除问题
+    url(r'admin/q(\d+)/(up|down)/$', 'admin.views.move_question'),    # 移动问题(改变序号)
     ## 选项管理
     url(r'admin/q(\d+)/add/', 'admin.views.add_option'),    # 添加选项
     url(r'admin/o(\d+)/edit/', 'admin.views.edit_option'),    # 修改选项
     url(r'admin/o(\d+)/delete/', 'admin.views.delete_option'),    # 删除选项
+    url(r'admin/o(\d+)/(up|down)/$', 'admin.views.move_option'),    # 移动选项(改变序号)
     ## 报表管理
     url(r'admin/(\d+)/report/$', 'admin.views.view_report'),    # 查看报表
     url(r'admin/(\d+)/report/update/$', 'admin.views.update_report'),    # 更新报表

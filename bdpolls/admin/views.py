@@ -113,6 +113,27 @@ def delete_question(request, question_id):
     
     return redirect(from_url)
 
+def move_question(request, question_id, action):
+    """移动问题(改变序号)"""
+
+    from_url = request.META['HTTP_REFERER']
+    question = Question.objects.get(pk=question_id)
+    if action == 'up' and question.order != 1:
+        related_question = Question.objects.get(questionnaire=question.questionnaire, order=question.order-1)
+        related_question.order += 1
+        related_question.save()
+        question.order -= 1
+        question.save()
+    elif action == 'down' and question.order != question.questionnaire.question_set.count():
+        related_question = Question.objects.get(questionnaire=question.questionnaire, order=question.order+1)
+        related_question.order -= 1
+        related_question.save()
+        question.order += 1
+        question.save()
+    
+    from_url += '#q%d' % question.order
+    return redirect(from_url)
+
 def add_option(request, question_id):
     """添加选项"""
 
@@ -175,6 +196,11 @@ def delete_option(request, option_id):
     
     from_url += '#q%d' % question.id
     return redirect(from_url)
+
+def move_option(request, option_id, action):
+    """移动选项(改变序号)"""
+
+    pass
 
 def view_report(request, report_id):
     """查看报表"""
