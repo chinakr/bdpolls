@@ -30,7 +30,7 @@ urlpatterns = patterns('',
     url(r'admin/q(\d+)/delete/$', 'admin.views.delete_question'),    # 删除问题
     ## 选项管理
     url(r'admin/q(\d+)/add/', 'admin.views.add_option'),    # 添加选项
-    url(r'admin/o(\d+)/add/', 'admin.views.edit_option'),    # 修改选项
+    url(r'admin/o(\d+)/edit/', 'admin.views.edit_option'),    # 修改选项
     url(r'admin/o(\d+)/delete/', 'admin.views.delete_option'),    # 删除选项
     ## 报表管理
     url(r'admin/(\d+)/report/$', 'admin.views.view_report'),    # 查看报表

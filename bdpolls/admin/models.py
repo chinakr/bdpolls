@@ -27,7 +27,7 @@ class Question(models.Model):
     is_multiple_choice = models.BooleanField(default=False, verbose_name=u'是否多选题')
 
     def __unicode__(self):
-        return u'%s的第%d题' % (self.questionnaire, self.order)
+        return u'%s的第%d个问题' % (self.questionnaire, self.order)
 
     def options(self):
         return self.option_set.order_by('order')
@@ -40,7 +40,7 @@ class Option(models.Model):
     content = models.CharField(max_length=200, verbose_name=u'选项内容')
     
     def __unicode__(self):
-        return u'第%d题的第%d个选项' % (self.question.order, self.order)
+        return u'第%d个问题的第%d个选项' % (self.question.order, self.order)
 
     def abc(self):
         """返回用大写字母表示的序号"""

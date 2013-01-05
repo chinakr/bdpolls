@@ -141,7 +141,23 @@ def add_option(request, question_id):
 def edit_option(request, option_id):
     """修改选项"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+    option = Option.objects.get(pk=option_id)
+    from_url += '#q%d' % option.question.order
+    if request.method == 'POST':
+        from_url = request.POST['from_url']
+        form = OptionForm(request.POST, instance=option)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'%s修改成功。' % option)
+    else:
+        form = OptionForm(instance=option)
+
+    return render(request, 'admin/edit_option.html', {
+        'option': option,
+        'form': form,
+        'from_url': from_url,
+    })
 
 def delete_option(request, option_id):
     """删除选项"""
