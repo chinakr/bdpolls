@@ -1,1 +1,55 @@
 {% extends 'layout_admin.html' %}
+
+{% block title %}问卷列表_调查问卷管理系统{% endblock %}
+
+{% block description %}系统中现有的调查问卷的列表，以及他们的修改、删除、报表查看。还提供了添加问卷的入口。{% endblock %}
+
+{% block keywords %}问卷, 列表, 管理{% endblock %}
+
+{% block head %}
+<script>
+$(function() {
+    $('li.list').addClass('active');    // 菜单项高亮
+});
+</script>
+{% endblock head %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li class="active">问卷列表</li>
+</ul><!-- End .breadcrumb -->
+<p><a class="btn btn-primary" href="/admin/add/">添加问卷</a></p>
+{% if messages %}
+<div class="alert alert-success">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    <button class="close" data-dismiss="alert">&times;</button>
+</div><!-- End .alert -->
+{% endif %}
+<table class="table table-striped table-hover">
+<thead>
+    <tr>
+        <th>问卷列表</th>
+        <th>创建时间</th>
+        <th>最后修改时间</th>
+        <th>管理</th>
+    </tr>
+</thead>
+<tbody>
+    {% for questionnaire in questionnaires %}
+    <tr>
+        <td>{{ questionnaire.title }}</td>
+        <td>{{ questionnaire.created|date:"o-m-d H:i" }}</td>
+        <td>{{ questionnaire.updated|date:"o-m-d H:i" }}</td>
+        <td>
+            <a href="/admin/{{ questionnaire.id }}/report/">查看报表</a>
+            <a href="/admin/edit/{{ questionnaire.id }}/">试题管理</a>
+            <a href="/admin/delete/{{ questionnaire.id }}/">删除问卷</a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock main %}

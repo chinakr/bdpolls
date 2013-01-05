@@ -1,7 +1,11 @@
 body>div.container {
     margin-top: 60px;
 }
-
 body>div.footer {
     text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
+form div.controls textarea {
+    width: 400px;
+    height: 100px;
