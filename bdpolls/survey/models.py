@@ -11,6 +11,21 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True, verbose_name=u'姓名')
     mobile = models.CharField(max_length=50, blank=True, null=True, verbose_name=u'手机')
 
+    def __unicode__(self):
+        return self.name
+
+    def last_visit(self):
+        """最后到访时间(参与调查问卷的时间)"""
+
+        feedback = self.user.feedback_set.order_by('-created')[0]
+        return feedback.created
+
+    def last_feedback(self):
+        """最后参与的调查问卷"""
+
+        feedback = self.user.feedback_set.order_by('-created')[0]
+        return feedback
+
 class Feedback(models.Model):
     """答卷(反馈)"""
 
@@ -19,9 +34,15 @@ class Feedback(models.Model):
     message = models.TextField(blank=True, null=True, verbose_name=u'留言')
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'提交时间')
 
+    def __unicode__(self):
+        return u'%s的答卷' % self.questionnaire
+
 class Answer(models.Model):
     """答案(每份答卷每个问题的答案)"""
 
     feedback = models.ForeignKey(Feedback, verbose_name=u'相关答卷')
     question = models.ForeignKey(Question, verbose_name=u'相关问题')
     option = models.ForeignKey(Option, verbose_name=u'相关选项')
+
+    def __unicode__(self):
+        return u'%s的第%d个问题的选项%s' % (self.feedback, self.question.order, self.option.abc)

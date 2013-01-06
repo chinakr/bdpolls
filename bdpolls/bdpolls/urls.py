@@ -37,6 +37,12 @@ urlpatterns = patterns('',
     ## 报表管理
     url(r'^admin/(\d+)/report/$', 'admin.views.view_report'),    # 查看报表
     url(r'^admin/(\d+)/report/update/$', 'admin.views.update_report'),    # 更新报表
+    ## 用户管理
+    url(r'^admin/user/(system|common)/$', 'admin.views.list_user'),    # 用户列表；system - 系统用户(后台用户)，common - 普通用户(前台用户)
+    url(r'^admin/user/add/$', 'admin.views.add_user'),    # 添加系统用户
+    url(r'^admin/user/(\d+)/$', 'admin.views.view_user'),    # 查看用户
+    url(r'^admin/user/(\d+)/edit/$', 'admin.views.edit_user'),    # 修改用户
+    url(r'^admin/user/(\d+)/delete/$', 'admin.views.delete_user'),    # 删除用户
 
     # 前台
     url(r'^$', 'survey.views.listing'),    # 首页

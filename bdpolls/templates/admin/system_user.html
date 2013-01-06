@@ -1,0 +1,57 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}系统用户列表_调查问卷管理系统{% endblock %}
+
+{% block description %}用于登录调查问卷管理系统后台的系统用户，由管理员负责分配帐号。{% endblock %}
+
+{% block keywords %}调查问卷, 管理, 用户列表, 系统用户{% endblock %}
+
+{% block head %}
+<script>
+$(function() {
+    $('li.system-user').addClass('active');    // 菜单项高亮
+});
+</script>
+{% endblock head %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li class="active">系统用户列表</li>
+</ul><!-- End .breadcrumb -->
+<p><a class="btn btn-primary" href="/admin/user/add/">添加用户</a></p>
+{% if messages %}
+<div class="alert alert-success">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+    <button class="close" data-dismiss="alert">&times;</button>
+</div><!-- End .alert -->
+{% endif %}
+<table class="table table-striped table-hover">
+<thead>
+    <tr>
+        <th>用户名</th>
+        <th>用户身份</th>
+        <th>创建时间</th>
+        <th>最后登录时间</th>
+        <th>管理</th>
+    </tr>
+</thead>
+<tbody>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{% if user.is_superuser %}超级管理员{% else %}管理员{% endif %}</td>
+        <td>{{ user.date_joined|date:"o-m-d H:i" }}</td>
+        <td>{{ user.last_login|date:"o-m-d H:i" }}</td>
+        <td>
+            <a href="/admin/user/{{ user.id }}/">查看用户</a>
+            <a href="/admin/user/{{ user.id }}/edit/">修改用户</a>
+            <a href="/admin/user/{{ user.id }}/delete/">删除用户</a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+{% endblock main %}

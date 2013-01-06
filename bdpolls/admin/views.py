@@ -2,10 +2,11 @@
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from admin.models import Questionnaire, Question, Option, Report, Percentage
 from admin.models import QuestionnaireForm, QuestionForm, OptionForm
-from survey.models import Feedback, Answer
+from survey.models import Feedback, Answer, UserProfile
 
 @login_required
 def listing(request):
@@ -17,6 +18,7 @@ def listing(request):
         'questionnaires': questionnaires,
     })
 
+@login_required
 def add(request):
     """添加问卷"""
 
@@ -33,6 +35,7 @@ def add(request):
         'form': form,
     })
 
+@login_required
 def edit(request, questionnaire_id):
     """修改问卷(问题管理)"""
 
@@ -42,6 +45,7 @@ def edit(request, questionnaire_id):
         'questionnaire': questionnaire,
     })
 
+@login_required
 def delete(request, questionnaire_id):
     """删除问卷"""
 
@@ -52,6 +56,7 @@ def delete(request, questionnaire_id):
 
     return redirect('/admin/list/')
 
+@login_required
 def add_question(request, questionnaire_id):
     """添加问题"""
 
@@ -78,6 +83,7 @@ def add_question(request, questionnaire_id):
         'from_url': from_url,
     })
 
+@login_required
 def edit_question(request, question_id):
     """修改问题"""
 
@@ -99,6 +105,7 @@ def edit_question(request, question_id):
         'from_url': from_url,
     })
 
+@login_required
 def delete_question(request, question_id):
     """删除问题"""
 
@@ -116,6 +123,7 @@ def delete_question(request, question_id):
     
     return redirect(from_url)
 
+@login_required
 def move_question(request, question_id, action):
     """移动问题(改变序号)"""
 
@@ -137,6 +145,7 @@ def move_question(request, question_id, action):
     from_url += '#q%d' % question.order
     return redirect(from_url)
 
+@login_required
 def add_option(request, question_id):
     """添加选项"""
 
@@ -162,6 +171,7 @@ def add_option(request, question_id):
         'from_url': from_url,
     })
 
+@login_required
 def edit_option(request, option_id):
     """修改选项"""
 
@@ -183,6 +193,7 @@ def edit_option(request, option_id):
         'from_url': from_url,
     })
 
+@login_required
 def delete_option(request, option_id):
     """删除选项"""
 
@@ -201,6 +212,7 @@ def delete_option(request, option_id):
     
     return redirect(from_url)
 
+@login_required
 def move_option(request, option_id, action):
     """移动选项(改变序号)"""
 
@@ -222,6 +234,7 @@ def move_option(request, option_id, action):
     
     return redirect(from_url)
 
+@login_required
 def view_report(request, questionnaire_id):
     """查看报表"""
    
@@ -241,6 +254,7 @@ def view_report(request, questionnaire_id):
         'report': report,
     })
 
+@login_required
 def update_report(request, questionnaire_id):
     """更新报表"""
 
@@ -257,3 +271,46 @@ def update_report(request, questionnaire_id):
                 Percentage.objects.create(report=report, question=question, option=option, amount=amount, percent=percent)
 
     return redirect(from_url)
+
+@login_required
+def list_user(request, user_type):
+    """用户列表
+
+    system - 系统用户(后台用户)
+    common - 普通用户(前台用户)
+    """
+
+    if user_type == 'system':
+        users = User.objects.exclude(username__startswith='auto_user_').order_by('username')
+        return render(request, 'admin/system_user.html', {
+            'users': users,
+        })
+    elif user_type == 'common':
+        users = UserProfile.objects.filter(user__username__startswith='auto_user_').order_by('-user__date_joined')
+        return render(request, 'admin/common_user.html', {
+            'users': users,
+        })
+
+@login_required
+def add_user(request):
+    """添加系统用户"""
+
+    pass
+
+@login_required
+def view_user(request, user_id):
+    """查看用户"""
+
+    pass
+
+@login_required
+def edit_user(request, user_id):
+    """修改用户"""
+
+    pass
+
+@login_required
+def delete_user(request, user_id):
+    """删除用户"""
+
+    pass
