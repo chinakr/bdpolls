@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block title %}用户登录_调查问卷管理系统{% endblock %}
+
+{% block description %}请使用管理员分配的用户名和密码登录调查问卷管理系统。{% endblock %}
+
+{% block keywords %}调查问卷, 管理, 用户登录{% endblock %}
+
+{% block header %}
+    <div class="container">
+        <div class="row">
+<div class="navbar span12">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/admin/">调查问卷管理系统</a>
+        </div><!-- End .container -->
+    </div><!-- End .navbar-inner -->
+</div><!-- End .navbar -->
+        </div><!-- End .row -->
+    </div><!-- End .container -->
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span8 offset2"><div class="well">
+            <form class="login form-horizontal" action="{% url django.contrib.auth.views.login %}" method="post">{% csrf_token %}
+                <legend>用户登录</legend>
+                {% if form.errors %}
+                <div class="alert">
+                    <p>{{ form.non_field_errors }}</p>
+                </div><!-- End .alert -->
+                {% endif %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <div class="control-group">
+                    <label class="control-label">用户名</label>
+                    <div class="controls">
+                        {{ form.username }}
+                    </div><!-- End .controls -->
+                </div><!-- End .control-group -->
+                <div class="control-group">
+                    <label class="control-label">密码</label>
+                    <div class="controls">
+                        {{ form.password }}
+                    </div><!-- End .controls -->
+                </div><!-- End .control-group -->
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </div><!-- End .controls -->
+                </div><!-- End .control-group -->
+            </form><!-- End .login -->
+        </div><!-- End .well --></div><!-- End .span12 -->
+    </div><!-- End .row -->
+</div><!-- End .container -->
+{% endblock %}

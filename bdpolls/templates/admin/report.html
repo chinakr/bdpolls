@@ -13,6 +13,7 @@
 </ul><!-- End .breadcrumb -->
 <div class="questionnaire">
     <h1>{{ report }}</h1>
+    <p>共有{{ report.total }}份调查问卷，报表更新于{{ report.created|date:"o-m-d H:i" }}。 <a href="/admin/{{ report.questionnaire.id }}/report/update/">更新报表</a></p>
     {% for question in report.questionnaire.questions %}
     <a name="q{{ question.order }}"></a>
     <div class="question well">
