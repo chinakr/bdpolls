@@ -49,4 +49,19 @@ $(function() {
     {% endfor %}
 </tbody>
 </table>
+<div class="pagination pagination-right">
+    <ul>
+        {% if users.has_previous %}
+        <li><a href="/admin/user/common/{{ users.previous_page_number }}/">上一页</a></li>
+        {% else %}
+        <li class="disabled"><a href="#">上一页</a></li>
+        {% endif %}
+        <li class="active"><a href="#">第{{ users.number }}页，共{{ users.paginator.num_pages }}页</a></li>
+        {% if users.has_next %}
+        <li><a href="/admin/user/common/{{ users.next_page_number }}/">下一页</a></li>
+        {% else %}
+        <li class="disabled"><a href="#">下一页</a></li>
+        {% endif %}
+    </ul>
+</div><!-- End .pagination -->
 {% endblock main %}

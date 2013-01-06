@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -273,12 +274,14 @@ def update_report(request, questionnaire_id):
     return redirect(from_url)
 
 @login_required
-def list_user(request, user_type):
+def list_user(request, user_type, page_num='1'):
     """用户列表
 
     system - 系统用户(后台用户)
     common - 普通用户(前台用户)
     """
+
+    ITEMS_PER_PAGE = 10
 
     if user_type == 'system':
         users = User.objects.exclude(username__startswith='auto_user_').order_by('username')
@@ -287,6 +290,8 @@ def list_user(request, user_type):
         })
     elif user_type == 'common':
         users = UserProfile.objects.filter(user__username__startswith='auto_user_').order_by('-user__date_joined')
+        p = Paginator(users, ITEMS_PER_PAGE)
+        users = p.page(page_num)
         return render(request, 'admin/common_user.html', {
             'users': users,
         })
