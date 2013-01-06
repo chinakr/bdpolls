@@ -64,3 +64,8 @@ span.percentage {
     /* color: red; */
     font-weight: bold;
 }
+textarea.message {
+    margin-bottom: 20px;
+    width: 98%;
+    height: 80px;
+}

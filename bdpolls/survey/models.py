@@ -16,6 +16,7 @@ class Feedback(models.Model):
 
     questionnaire = models.ForeignKey(Questionnaire, verbose_name=u'相关问卷')
     user = models.ForeignKey(User, verbose_name=u'相关用户')
+    message = models.TextField(blank=True, null=True, verbose_name=u'留言')
     created = models.DateTimeField(auto_now_add=True, verbose_name=u'提交时间')
 
 class Answer(models.Model):

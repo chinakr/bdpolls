@@ -21,8 +21,10 @@ def join(request, questionnaire_id):
 
     if request.method == 'POST':
         name = request.POST['name']    # 姓名
-        mobile = request.POST['mobile']    # 手机号
+        mobile = request.POST['mobile']    # 手机
+        message = request.POST['message']    # 留言
         #print 'DEBUG: name: %s; mobile: %s' % (name, mobile)
+        print 'DEBUG: message is `%s`.' % message
         if UserProfile.objects.filter(name=name, mobile=mobile).exists():
             profile = UserProfile.objects.get(name=name, mobile=mobile)
             user = profile.user
@@ -31,7 +33,7 @@ def join(request, questionnaire_id):
             username = 'auto_user_%d' % random.randint(100000, 999999)
             user = User.objects.create(username=username, password='helloworld')
             UserProfile.objects.create(user=user, name=name, mobile=mobile)
-        feedback = Feedback.objects.create(questionnaire=questionnaire, user=user)
+        feedback = Feedback.objects.create(questionnaire=questionnaire, user=user, message=message)
         for question in questionnaire.questions():
             try:    # 跳过未选择的题
                 request.POST['question_%d' % question.id]
