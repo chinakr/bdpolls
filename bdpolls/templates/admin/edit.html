@@ -14,7 +14,7 @@
 <p><a class="btn" href="/admin/list/">返回</a></p>
 <div class="questionnaire">
     <h1>{{ questionnaire.title }}</h1>
-    <p><a class="btn btn-primary" href="/admin/{{ questionnaire.id }}/add/">添加试题</a> <a class="btn btn-primary" href="/admin/modify/{{ questionnaire.id }}/">修改问卷</a> <a class="btn btn-primary" href="/{{ questionnaire.id }}/" target="blank">查看问卷</a> <a href="/admin/delete/{{ questionnaire.id }}/">删除问卷</a></p>
+    <p><a class="btn btn-primary" href="/admin/{{ questionnaire.id }}/add/">添加试题</a> <a class="btn btn-primary" href="/admin/modify/{{ questionnaire.id }}/">修改问卷</a> <a class="btn btn-primary" href="/{{ questionnaire.id }}/" target="blank">查看问卷</a> <a href="/admin/delete/{{ questionnaire.id }}/">删除问卷</a> <a href="/admin/reorder/{{ questionnaire.id }}/" title="所有问题的所有选项重新排序">重新排序</a></p>
     {% if messages %}
     <div class="alert alert-success">
         {% for message in messages %}
@@ -35,7 +35,7 @@
             <p><span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span> <a href="/admin/o{{ option.id }}/edit/">修改</a> <a href="/admin/o{{ option.id }}/delete/">删除</a> <a href="/admin/o{{ option.id }}/up/">上移</a> <a href="/admin/o{{ option.id }}/down/">下移</a></p>
         </div><!-- End .option -->
         {% endfor %}
-        <p><a class="btn btn-primary" href="/admin/q{{ question.id }}/add/">添加选项</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/edit/">修改试题</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/delete/">删除试题</a> <a class="btn" href="/admin/q{{ question.id }}/up/">上移</a> <a class="btn" href="/admin/q{{ question.id }}/down/">下移</a></p>
+        <p><a class="btn btn-primary" href="/admin/q{{ question.id }}/add/">添加选项</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/edit/">修改试题</a> <a class="btn btn-primary" href="/admin/q{{ question.id }}/delete/">删除试题</a> <a class="btn" href="/admin/q{{ question.id }}/up/">上移</a> <a class="btn" href="/admin/q{{ question.id }}/down/">下移</a> <a href="/admin/q{{ question.id }}/reorder/" title="本题的所有选项重新排序">重新排序</a></p>
     </div><!-- End .question -->
     {% endfor %}
     <div class="thanking well">

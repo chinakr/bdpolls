@@ -25,11 +25,13 @@ urlpatterns = patterns('',
     url(r'^admin/edit/(\d+)/$', 'admin.views.edit'),    # 修改问卷(问题管理)
     url(r'^admin/modify/(\d+)/$', 'admin.views.modify'),    # 修改问卷(标题等)
     url(r'^admin/delete/(\d+)/$', 'admin.views.delete'),    # 删除问卷
+    url(r'^admin/reorder/(\d+)/$', 'admin.views.reorder'),    # 所有问题的所有选项全部排序
     ## 问题管理
     url(r'^admin/(\d+)/add/$', 'admin.views.add_question'),    # 添加问题
     url(r'^admin/q(\d+)/edit/$', 'admin.views.edit_question'),    # 修改问题
     url(r'^admin/q(\d+)/delete/$', 'admin.views.delete_question'),    # 删除问题
     url(r'^admin/q(\d+)/(up|down)/$', 'admin.views.move_question'),    # 移动问题(改变序号)
+    url(r'^admin/q(\d+)/reorder/$', 'admin.views.reorder_options'),    # 给问题选项重新排序(解决选项序号重复的问题)
     ## 选项管理
     url(r'^admin/q(\d+)/add/', 'admin.views.add_option'),    # 添加选项
     url(r'^admin/o(\d+)/edit/', 'admin.views.edit_option'),    # 修改选项

@@ -80,6 +80,22 @@ def delete(request, questionnaire_id):
     return redirect('/admin/list/')
 
 @login_required
+def reorder(request, questionnaire_id):
+    """给所有问题的所有选项重新排序(解决选项序号重复问题)"""
+
+    from_url = request.META['HTTP_REFERER']
+    questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
+
+    for question in questionnaire.questions():
+        count = 0
+        for option in question.options():
+            count += 1
+            option.order = count
+            option.save()
+
+    return redirect(from_url)
+
+@login_required
 def add_question(request, questionnaire_id):
     """添加问题"""
 
@@ -165,6 +181,22 @@ def move_question(request, question_id, action):
         question.order += 1
         question.save()
     
+    from_url += '#q%d' % question.order
+    return redirect(from_url)
+
+@login_required
+def reorder_options(request, question_id):
+    """给问题选项重新排序(解决选项序号重复的问题)"""
+
+    from_url = request.META['HTTP_REFERER']
+    question = Question.objects.get(pk=question_id)
+
+    count = 0
+    for option in question.options():
+        count += 1
+        option.order = count
+        option.save()
+
     from_url += '#q%d' % question.order
     return redirect(from_url)
 
