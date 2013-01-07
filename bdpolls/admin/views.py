@@ -376,7 +376,21 @@ def view_user(request, user_id):
 def edit_user(request, user_id):
     """修改用户"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+    user = User.objects.get(pk=user_id)
+    if request.method == 'POST':
+        from_url = request.POST['from_url']
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'用户%s的信息已保存。' % user)
+    else:
+        form = UserForm(instance=user)
+
+    return render(request, 'admin/edit_user.html', {
+        'form': form,
+        'from_url': from_url,
+    })
 
 @login_required
 def delete_user(request, user_id):
