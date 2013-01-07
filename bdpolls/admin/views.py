@@ -372,7 +372,11 @@ def add_user(request):
 def view_user(request, user_id):
     """查看用户"""
 
-    pass
+    user = User.objects.get(pk=user_id)
+
+    return render(request, 'admin/user.html', {
+        'user': user,
+    })
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -390,6 +394,7 @@ def edit_user(request, user_id):
     else:
         form = UserForm(instance=user)
 
+    form.fields['username'].widget.attrs['readonly'] = True
     return render(request, 'admin/edit_user.html', {
         'form': form,
         'from_url': from_url,

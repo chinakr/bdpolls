@@ -1,0 +1,27 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}查看系统用户_调查问卷管理系统{% endblock %}
+
+{% block description %}查看系统用户。系统用户可访问调查问卷管理系统后台。{% endblock %}
+
+{% block keywords %}调查问卷, 管理, 系统用户, 查看用户{% endblock %}
+
+{% block head %}
+<script>
+$(function() {
+    $('li.system-user').addClass('active');    // 菜单项高亮
+});
+</script>
+{% endblock head %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li class="active">查看系统用户</li>
+</ul><!-- End .breadcrumb -->
+<ul>
+    <li>用户名：{{ user }}</li>
+    <li>用户身份：{% if user.is_superuser %}超级管理员{% else %}管理员{% endif %}</li>
+    <li>E-mail：{{ user.email }}</li>
+</ul>
+{% endblock main %}
