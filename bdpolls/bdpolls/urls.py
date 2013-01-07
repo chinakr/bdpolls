@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^admin/add/$', 'admin.views.add'),    # 添加问卷
     url(r'^admin/list/$', 'admin.views.listing'),    # 问卷列表(问卷管理)
     url(r'^admin/edit/(\d+)/$', 'admin.views.edit'),    # 修改问卷(问题管理)
+    url(r'^admin/modify/(\d+)/$', 'admin.views.modify'),    # 修改问卷(标题等)
     url(r'^admin/delete/(\d+)/$', 'admin.views.delete'),    # 删除问卷
     ## 问题管理
     url(r'^admin/(\d+)/add/$', 'admin.views.add_question'),    # 添加问题

@@ -44,9 +44,8 @@ $(function() {
         <td>{{ questionnaire.created|date:"o-m-d H:i" }}</td>
         <td>{{ questionnaire.updated|date:"o-m-d H:i" }}</td>
         <td>
+            <a href="/admin/edit/{{ questionnaire.id }}/">问卷管理</a>
             <a href="/admin/{{ questionnaire.id }}/report/" target="_blank">查看报表</a>
-            <a href="/admin/edit/{{ questionnaire.id }}/">问题管理</a>
-            <a href="/admin/delete/{{ questionnaire.id }}/">删除问卷</a>
         </td>
     </tr>
     {% endfor %}

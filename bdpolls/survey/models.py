@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 
+from django import forms
 from django.db import models
 from django.contrib.auth.models import User
 from admin.models import Questionnaire, Question, Option
@@ -46,3 +47,10 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return u'%s的第%d个问题的选项%s' % (self.feedback, self.question.order, self.option.abc)
+
+class UserForm(forms.ModelForm):
+    """用户表单"""
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')

@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from admin.models import Questionnaire, Question, Option, Report, Percentage
 from admin.models import QuestionnaireForm, QuestionForm, OptionForm
 from survey.models import Feedback, Answer, UserProfile
+from survey.models import UserForm
 
 @login_required
 def listing(request):
@@ -44,6 +45,27 @@ def edit(request, questionnaire_id):
 
     return render(request, 'admin/edit.html', {
         'questionnaire': questionnaire,
+    })
+
+@login_required
+def modify(request, questionnaire_id):
+    """修改问卷(标题等)"""
+
+    from_url = request.META['HTTP_REFERER']
+    questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
+
+    if request.method == 'POST':
+        from_url = request.POST['from_url']
+        form = QuestionnaireForm(request.POST, instance=questionnaire)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u'%s保存成功。' % questionnaire)
+    else:
+        form = QuestionnaireForm(instance=questionnaire)
+
+    return render(request, 'admin/modify.html', {
+        'form': form,
+        'from_url': from_url,
     })
 
 @login_required
@@ -300,7 +322,17 @@ def list_user(request, user_type, page_num='1'):
 def add_user(request):
     """添加系统用户"""
 
-    pass
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin/user/system/')
+    else:
+        form = UserForm()
+
+    return render(request, 'admin/add_user.html', {
+        'form': form,
+    })
 
 @login_required
 def view_user(request, user_id):
