@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from admin.models import Questionnaire, Question, Option, Report, Percentage
 from admin.models import QuestionnaireForm, QuestionForm, OptionForm
 from survey.models import Feedback, Answer, UserProfile
@@ -328,6 +328,7 @@ def update_report(request, questionnaire_id):
     return redirect(from_url)
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def list_user(request, user_type, page_num='1'):
     """用户列表
 
@@ -351,6 +352,7 @@ def list_user(request, user_type, page_num='1'):
         })
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_user(request):
     """添加系统用户"""
 
@@ -373,6 +375,7 @@ def view_user(request, user_id):
     pass
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def edit_user(request, user_id):
     """修改用户"""
 
@@ -393,6 +396,7 @@ def edit_user(request, user_id):
     })
 
 @login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_user(request, user_id):
     """删除用户"""
 

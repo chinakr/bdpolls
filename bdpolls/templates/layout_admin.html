@@ -8,6 +8,7 @@
         <div class="container">
             <a class="brand" href="/admin/">调查问卷管理系统</a>
             <ul class="nav pull-right">
+                <li>{% if user.is_authenticated %}<a href="/admin/user/{{ user.id }}/">{{ user.username }}</a>{% endif %}</li>
                 <li><a href="/accounts/logout/">退出</a></li>
             </ul><!-- End .nav -->
         </div><!-- End .container -->
