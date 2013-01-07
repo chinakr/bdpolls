@@ -20,12 +20,14 @@
             <p>{% for option in question.options %}<span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span>{% endfor %}</p>
             {% endcomment %}
             {% for option in question.options %}
-            {% if question.is_multiple_choice %}
-            <input type="checkbox" name="question_{{ question.id }}" value="{{ option.id }}">
-            {% else %}
-            <input type="radio" name="question_{{ question.id }}" value="{{ option.id }}">
-            {% endif %}
-            <span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span>
+            <span class="option">
+                {% if question.is_multiple_choice %}
+                <input type="checkbox" name="question_{{ question.id }}" value="{{ option.id }}">
+                {% else %}
+                <input type="radio" name="question_{{ question.id }}" value="{{ option.id }}">
+                {% endif %}
+                <span class="order">{{ option.abc }}.</span> <span class="content">{{ option.content }}</span>
+            </span><!-- End .option -->
             {% endfor %}
         </div><!-- End .option -->
     </div><!-- End .question -->

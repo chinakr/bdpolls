@@ -73,3 +73,7 @@ textarea.message {
 input#id_title {
     width: 300px;
 }
+
+span.option {
+    white-space: nowrap;
+}
