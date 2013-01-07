@@ -52,7 +52,6 @@ def join(request, questionnaire_id):
                 Answer.objects.create(feedback=feedback, question=question, option=option)
         return redirect('/%d/thanks/' % questionnaire.id)
             
-
     return render(request, 'survey/join.html', {
         'questionnaire': questionnaire,
     })

@@ -74,6 +74,9 @@ input#id_title {
     width: 300px;
 }
 
+div.introduction p, div.thanking p {
+    text-indent: 2em;
+}
 span.option {
     white-space: nowrap;
 }
