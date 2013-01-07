@@ -400,4 +400,7 @@ def edit_user(request, user_id):
 def delete_user(request, user_id):
     """删除用户"""
 
-    pass
+    from_url = request.META['HTTP_REFERER']
+    user = User.objects.get(pk=user_id)
+    user.delete()
+    return redirect(from_url)
