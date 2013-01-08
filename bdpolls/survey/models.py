@@ -18,14 +18,22 @@ class UserProfile(models.Model):
     def last_visit(self):
         """最后到访时间(参与调查问卷的时间)"""
 
-        feedback = self.user.feedback_set.order_by('-created')[0]
-        return feedback.created
+        try:
+            feedback = self.user.feedback_set.order_by('-created')[0]
+            return feedback.created
+        except:
+            print 'DEBUG: last_visit - feedback error - %s' % self
+            return ''
 
     def last_feedback(self):
         """最后参与的调查问卷"""
 
-        feedback = self.user.feedback_set.order_by('-created')[0]
-        return feedback
+        try:
+            feedback = self.user.feedback_set.order_by('-created')[0]
+            return feedback
+        except:
+            print 'DEBUG: last_feedback - feedback error - %s' % self
+            return ''
 
 class Feedback(models.Model):
     """答卷(反馈)"""
