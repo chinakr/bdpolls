@@ -14,7 +14,7 @@
 <p><a class="btn" href="/admin/list/">返回</a></p>
 <div class="questionnaire">
     <h1>{{ questionnaire.title }}</h1>
-    <p><a class="btn btn-primary" href="/admin/{{ questionnaire.id }}/add/">添加试题</a> <a class="btn btn-primary" href="/admin/modify/{{ questionnaire.id }}/">修改问卷</a> <a class="btn btn-primary" href="/{{ questionnaire.id }}/" target="blank">查看问卷</a> <a href="/admin/delete/{{ questionnaire.id }}/">删除问卷</a> <a href="/admin/reorder/{{ questionnaire.id }}/" title="所有问题的所有选项重新排序">重新排序</a></p>
+    <p><a class="btn btn-primary" href="/admin/{{ questionnaire.id }}/add/">添加试题</a> <a class="btn btn-primary" href="/admin/modify/{{ questionnaire.id }}/">修改问卷</a> <a class="btn btn-primary" href="/{{ questionnaire.id }}/" target="blank">查看问卷</a> <a href="/admin/delete/{{ questionnaire.id }}/">删除问卷</a> <a href="/admin/reorder/{{ questionnaire.id }}/" title="所有问题和所有选项重新排序">重新排序</a></p>
     {% if messages %}
     <div class="alert alert-success">
         {% for message in messages %}

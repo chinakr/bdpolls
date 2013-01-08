@@ -81,7 +81,10 @@ def delete(request, questionnaire_id):
 
 @login_required
 def reorder(request, questionnaire_id):
-    """给所有问题的所有选项重新排序(解决选项序号重复问题)"""
+    """给所有问题的所有选项重新排序(解决选项序号重复问题)
+    
+    更新：给所有问题重新排序。
+    """
 
     from_url = request.META['HTTP_REFERER']
     questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
@@ -92,6 +95,12 @@ def reorder(request, questionnaire_id):
             count += 1
             option.order = count
             option.save()
+
+    count = 0
+    for question in questionnaire.questions():
+        count += 1
+        question.order = count
+        question.save()
 
     return redirect(from_url)
 
@@ -326,6 +335,12 @@ def update_report(request, questionnaire_id):
                 Percentage.objects.create(report=report, question=question, option=option, amount=amount, percent=percent)
 
     return redirect(from_url)
+
+@login_required
+def view_message(request, questionnaire_id):
+    """查看留言"""
+
+    pass
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
