@@ -1,0 +1,40 @@
+{% extends 'layout_admin.html' %}
+
+{% block title %}{{ questionnaire }}的留言_调查问卷管理系统{% endblock %}
+
+{% block description %}欢迎查阅{{ questionnaire }}的留言，内容包括了留言内容和留言时间，发布人姓名为匿名。{% endblock %}
+
+{% block keywords %}调查问卷，留言{% endblock %}
+
+{% block main %}
+<ul class="breadcrumb">
+    <li><a href="/admin/">调查问卷管理系统</a> <span class="divider">/</span></li>
+    <li class="active">{{ questionnaire }}的留言</li>
+</ul><!-- End .breadcrumb -->
+<div class="messages">
+    <h1>{{ questionnaire }}的留言</h1>
+    <p class="date">更新：{{ questionnaire.updated|date:"o-m-d H:i" }}</p>
+    <p>共<strong>{{ feedbacks.paginator.count }}</strong>个留言，共<strong>{{ feedbacks.paginator.num_pages }}</strong>页，当前页共<strong>{{ feedbacks.object_list|length }}</strong>个留言。</p>
+    {% for feedback in feedbacks %}
+    <div class="message well">
+        <p>{{ feedback.message }}</p>
+        <p class="meta"><!--<span class="author">{{ feedback.user.userprofile.name }}</span>(<span class="mobile">{{ feedback.user.userprofile.mobile }}</span>)--><span class="date">{{ feedback.created|date:"o-m-d H:i" }}</span></p>
+    </div><!-- End .message -->
+    {% endfor %}
+</div><!-- End .messages -->
+<div class="pagination pagination-right">
+    <ul>
+        {% if feedbacks.has_previous %}
+        <li><a href="/admin/{{ questionnaire.id }}/message/{{ feedbacks.previous_page_number }}/">上一页</a></li>
+        {% else %}
+        <li class="disabled"><a href="#">上一页</a></li>
+        {% endif %}
+        <li class="active"><a href="#">第{{ feedbacks.number }}页，共{{ feedbacks.paginator.num_pages }}页</a></li>
+        {% if feedbacks.has_next %}
+        <li><a href="/admin/{{ questionnaire.id }}/message/{{ feedbacks.next_page_number }}/">下一页</a></li>
+        {% else %}
+        <li class="disabled"><a href="#">下一页</a></li>
+        {% endif %}
+    </ul>
+</div><!-- End .pagination -->
+{% endblock main %}

@@ -337,10 +337,20 @@ def update_report(request, questionnaire_id):
     return redirect(from_url)
 
 @login_required
-def view_message(request, questionnaire_id):
+def view_message(request, questionnaire_id, page_num='1'):
     """查看留言"""
 
-    pass
+    ITEMS_PER_PAGE = 25
+
+    questionnaire = Questionnaire.objects.get(pk=questionnaire_id)
+    feedbacks = questionnaire.feedback_set.exclude(message='').order_by('-created')    # 不显示空留言；最后发表的留言显示在最前面
+    p = Paginator(feedbacks, ITEMS_PER_PAGE)
+    feedbacks = p.page(page_num)
+
+    return render(request, 'admin/message.html', {
+        'questionnaire': questionnaire,
+        'feedbacks': feedbacks,
+    })
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

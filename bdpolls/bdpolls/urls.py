@@ -41,6 +41,7 @@ urlpatterns = patterns('',
     url(r'^admin/(\d+)/report/$', 'admin.views.view_report'),    # 查看报表
     url(r'^admin/(\d+)/report/update/$', 'admin.views.update_report'),    # 更新报表
     url(r'^admin/(\d+)/message/$', 'admin.views.view_message'),    # 查看留言
+    url(r'^admin/(\d+)/message/(\d+)/$', 'admin.views.view_message'),    # 查看留言；分页查看
     ## 用户管理
     url(r'^admin/user/(system|common)/$', 'admin.views.list_user'),    # 用户列表；system - 系统用户(后台用户)，common - 普通用户(前台用户)
     url(r'^admin/user/(system|common)/(\d)+/$', 'admin.views.list_user'),    # 用户列表；分页查看
